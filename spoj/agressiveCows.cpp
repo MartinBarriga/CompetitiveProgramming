@@ -31,7 +31,7 @@ int main(){
         r = stall[n-1] - stall[0];
         while(l<=r){
             mid = (l + r)/2;
-            cout << mid << endl;
+            //cout << mid << endl;
             if(prove(mid, stall, n, c) == true){
                 maxDistance = mid;
                 l = mid + 1;
