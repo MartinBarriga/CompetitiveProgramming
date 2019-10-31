@@ -17,6 +17,7 @@ bool traverse(int currentNode){
             if(!hasDetectedNoCycle) return false;//si el nodo adyacente detectó ciclo entonces regresamos false, indicando que no es un grafo valido, pues tiene ciclo
         }
     }
+    visitedNodes.erase(currentNode);//Una vez que terminamos de analizar un nodo, lo eliminamos de nuestro almacén
     return true;
 }
 int main(){
@@ -35,7 +36,7 @@ int main(){
     //Para este programa suponemos que siempre existirán n nodos, y cada uno de ellos estará conectado con algún otro. Pues no pueden haber varios grafos representados en la matriz
     //comenzamos con el nodo 0;
     for(int currentNode = 0; currentNode < matrixSize; currentNode++){
-        visitedNodes.clear(); //Limpiamos nuestro almacen de nodos visitados
+        //visitedNodes.clear(); //Limpiamos nuestro almacen de nodos visitados
         if(traverse(currentNode) == false) { // si identificamos que hay un ciclo comenzando con el nodo actual, terminamos nuestro programa
             cout << "Si hay ciclo" << endl;
             return 0;
