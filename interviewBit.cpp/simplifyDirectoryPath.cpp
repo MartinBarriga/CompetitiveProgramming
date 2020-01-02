@@ -1,6 +1,6 @@
 void insertNewDirectory(deque<string> &absPath, int &index, string &A){
     string folderName = "";
-    while(A[index] != '/'){
+    while(index < A.size() && A[index] != '/'){
         folderName += A[index];
         index++;
     }
@@ -22,7 +22,7 @@ string Solution::simplifyPath(string A) {
         }
         else{
             if(A[index] == '.'){
-                absPath.pop_back();
+                if(!absPath.empty())absPath.pop_back();
             }
             
             lastCharWasASlash = true;
