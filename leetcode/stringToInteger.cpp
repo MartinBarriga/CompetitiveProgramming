@@ -2,51 +2,35 @@ class Solution {
 public:
     int myAtoi(string str) {
         int index = 0;
-        int number = 0;
-        bool isItPositive = true;
-        if(str == "") return 0;
-        while(str[index] == ' ' && index < str.size()) index++;
-        if(index < str.size() && str[index] == '+'){
+        int converted = 0;
+        int sign = 1;
+        while(index < str.size() && str[index] == ' ') {
             index++;
         }
-        else if(str[index] == '-'){
-            isItPositive = false;
-            index++;
+        if(index == str.size()) {
+            return 0;
         }
-        while(index < str.size() && (str[index]>= '0' && str[index] <= '9')){
-            int newDigit = str[index] - '0';
-            if(isItPositive == true){
-                if(number > INT_MAX/10){
-                    return INT_MAX;
-                }
-                if(number == INT_MAX/10){
-                    if(newDigit >= INT_MAX %10){
-                        return INT_MAX;
-                    }
-                    number = number*10 + newDigit;
-                }
-                else{
-                    number = number*10 + newDigit;
-                }
-            } 
-            else{
-                int negNumber = number * -1;
-                if(negNumber < INT_MIN/10){
-                    return INT_MIN;
-                }
-                if(negNumber == INT_MIN/10){
-                    if((newDigit*-1) <= INT_MIN%10){
-                        return INT_MIN;
-                    }
-                    number = number*10 + newDigit;
-                } 
-                else{
-                    number = number*10 + newDigit;
-                }
+        if(str[index] == '+' || str[index] == '-') {
+            if(str[index] == '-') {
+                sign = -1;
             }
             index++;
         }
-        if(isItPositive == false) number*=-1;
-        return number;
+        char currentNum = str[index];
+        while(index < str.size() && currentNum >= '0' && currentNum <= '9') {
+            if((sign > 0 && (INT_MAX - (currentNum - '0')*sign)/10 >= converted ) || 
+               (sign < 0 && (INT_MIN - (currentNum - '0')*sign)/10 <= converted)) {
+                converted = converted*10 + (currentNum - '0')*sign;
+            }
+            else {
+                if(sign > 0) {
+                    return INT_MAX;
+                }
+                return INT_MIN;
+            }
+            index++;
+            currentNum = str[index];
+        }
+        return converted;
     }
 };
