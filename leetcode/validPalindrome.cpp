@@ -1,39 +1,43 @@
 class Solution {
 public:
-    bool isAlphanumeric(char character){
-        if((character >= '0' && character <= '9') || (character >= 'A' && character <= 'Z') || (character >= 'a' && character <= 'z')){
+    bool isAlphanumeric(char letter) {
+        if((letter >= '0' && letter <= '9') || (letter >= 'a' && letter <= 'z') || (letter >= 'A' && letter <= 'Z')) {
+            return true;
+        }
+        return false;
+    }
+    bool areEqual(char leftLetter, char rightLetter) {
+        if(leftLetter >= 'A' && leftLetter <= 'Z') {
+            leftLetter += 'a' - 'A';
+        }
+        if(rightLetter >= 'A' && rightLetter <= 'Z') {
+            rightLetter += 'a' - 'A';
+        }
+        if(leftLetter == rightLetter) {
             return true;
         }
         return false;
     }
     bool isPalindrome(string s) {
-        int left = 0;
+        int left = 0; 
         int right = s.size()-1;
-        while(left < right){
-            if(isAlphanumeric(s[left]) == true && isAlphanumeric(s[right]) == true){
-                if(s[left]>='A' && s[left] <= 'Z'){
-                    s[left] += ('a'-'A'); 
-                }
-                if(s[right]>='A' && s[right] <= 'Z'){
-                    s[right] += ('a'-'A'); 
-                }
-                if(s[left] == s[right]){
-                    left++;
-                    right--;
-                }
-                else{
+        while(left < right) {
+            if(isAlphanumeric(s[left]) && isAlphanumeric(s[right])) {
+                if(!areEqual(s[left], s[right])) {
                     return false;
                 }
+                left++;
+                right--;
             }
-            else{
-                if(isAlphanumeric(s[left]) == false){
-                    left++; 
+            else {
+                if(!isAlphanumeric(s[left])) {
+                    left++;
                 }
-                if(isAlphanumeric(s[right]) == false){
+                if(!isAlphanumeric(s[right])) {
                     right--;
                 }
             }
-        } 
+        }
         return true;
     }
 };
